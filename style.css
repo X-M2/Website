@@ -373,3 +373,12 @@ p { margin: 0; }
   .nav-toggle.open span:nth-child(2) { opacity: 0; }
   .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 }
+
+#bp-webchat-container iframe,
+#bp-webchat.bp-embedded {
+  position: static !important;
+  width: 100% !important;
+  height: 560px !important;
+  border: none !important;
+  border-radius: 12px;
+}
