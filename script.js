@@ -144,3 +144,122 @@ if (breathingToggle) {
     }
   });
 }
+
+// ---------- Shoulders & jaw release (click-through steps) ----------
+
+const releaseStepText = document.getElementById("releaseStepText");
+const releaseDots = document.querySelectorAll("#releaseDots .release-dot");
+const releaseNextBtn = document.getElementById("releaseNextBtn");
+const zoneShoulders = document.querySelectorAll(".zone-shoulders");
+const zoneJaw = document.querySelectorAll(".zone-jaw");
+const zoneHands = document.querySelectorAll(".zone-hands");
+
+const releaseSteps = [
+  {
+    text: "Drop your shoulders away from your ears. Hold for 3 seconds, then let go.",
+    zones: zoneShoulders
+  },
+  {
+    text: "Unclench your jaw. Let your tongue rest gently behind your teeth.",
+    zones: zoneJaw
+  },
+  {
+    text: "Shake out your hands. Notice the difference?",
+    zones: zoneHands
+  }
+];
+
+let releaseStepIndex = -1;
+
+function clearAllZones() {
+  [...zoneShoulders, ...zoneJaw, ...zoneHands].forEach((z) => (z.style.opacity = 0));
+}
+
+function showReleaseStep(index) {
+  clearAllZones();
+  releaseDots.forEach((d, i) => d.classList.toggle("active", i === index));
+
+  const step = releaseSteps[index];
+  releaseStepText.textContent = step.text;
+  step.zones.forEach((z) => (z.style.opacity = 1));
+}
+
+if (releaseNextBtn) {
+  releaseNextBtn.addEventListener("click", () => {
+    releaseStepIndex++;
+
+    if (releaseStepIndex >= releaseSteps.length) {
+      // Reset back to start
+      releaseStepIndex = -1;
+      clearAllZones();
+      releaseDots.forEach((d) => d.classList.remove("active"));
+      releaseStepText.textContent = "Ready when you are.";
+      releaseNextBtn.textContent = "Start";
+      return;
+    }
+
+    showReleaseStep(releaseStepIndex);
+    releaseNextBtn.textContent =
+      releaseStepIndex === releaseSteps.length - 1 ? "Done" : "Next";
+  });
+}
+
+// ---------- Before you present (60s countdown) ----------
+
+const countdownNumber = document.getElementById("countdownNumber");
+const countdownLine = document.getElementById("countdownLine");
+const countdownToggle = document.getElementById("countdownToggle");
+
+const countdownLines = [
+  { at: 60, text: "Shake out your hands." },
+  { at: 45, text: "Roll your shoulders back." },
+  { at: 30, text: "Take one slow breath." },
+  { at: 15, text: "You know this material." },
+  { at: 5, text: "Almost time. You've got this." }
+];
+
+let countdownInterval = null;
+let countdownValue = 60;
+let countdownActive = false;
+
+function updateCountdownLine(value) {
+  const match = [...countdownLines].reverse().find((l) => value <= l.at);
+  if (match) countdownLine.textContent = match.text;
+}
+
+function startCountdown() {
+  countdownActive = true;
+  countdownValue = 60;
+  countdownNumber.textContent = countdownValue;
+  updateCountdownLine(countdownValue);
+  countdownToggle.textContent = "Stop";
+
+  countdownInterval = setInterval(() => {
+    countdownValue--;
+    countdownNumber.textContent = countdownValue;
+    updateCountdownLine(countdownValue);
+
+    if (countdownValue <= 0) {
+      countdownLine.textContent = "Go get 'em.";
+      stopCountdown();
+    }
+  }, 1000);
+}
+
+function stopCountdown() {
+  countdownActive = false;
+  clearInterval(countdownInterval);
+  countdownToggle.textContent = "Start 60s";
+}
+
+if (countdownToggle) {
+  countdownToggle.addEventListener("click", () => {
+    if (countdownActive) {
+      stopCountdown();
+      countdownNumber.textContent = "60";
+      countdownLine.textContent = "Shake out your hands.";
+    } else {
+      startCountdown();
+    }
+  });
+}

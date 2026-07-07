@@ -169,18 +169,40 @@
         <h3>Breathing reset</h3>
         <p>A short guided breathing sequence for the ten minutes before something stressful.</p>
       </article>
-      <article class="clipping clipping-2 clipping-muted">
+      <article class="clipping clipping-2">
         <div class="clipping-tape" aria-hidden="true"></div>
-        <div class="library-thumb">
-          <span class="placeholder-badge">Planned</span>
+        <div class="release-exercise">
+          <div class="release-visual" aria-hidden="true">
+            <svg viewBox="0 0 140 140" class="icon-sketch release-figure">
+              <!-- simple head + shoulders outline -->
+              <circle cx="70" cy="38" r="22" fill="none" stroke="currentColor" stroke-width="3"/>
+              <path d="M28 116 C28 84 48 68 70 68 C92 68 112 84 112 116"
+                    fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              <!-- zone markers, toggled by JS -->
+              <circle class="zone-mark zone-shoulders" cx="40" cy="82" r="9" fill="var(--highlight)" opacity="0"/>
+              <circle class="zone-mark zone-shoulders" cx="100" cy="82" r="9" fill="var(--highlight)" opacity="0"/>
+              <circle class="zone-mark zone-jaw" cx="70" cy="52" r="9" fill="var(--highlight)" opacity="0"/>
+              <circle class="zone-mark zone-hands" cx="30" cy="118" r="9" fill="var(--highlight)" opacity="0"/>
+              <circle class="zone-mark zone-hands" cx="110" cy="118" r="9" fill="var(--highlight)" opacity="0"/>
+            </svg>
+          </div>
+          <p class="release-step-text" id="releaseStepText">Ready when you are.</p>
+          <div class="release-dots" id="releaseDots" aria-hidden="true">
+            <span class="release-dot"></span>
+            <span class="release-dot"></span>
+            <span class="release-dot"></span>
+          </div>
+          <button class="btn btn-ghost release-btn" id="releaseNextBtn">Start</button>
         </div>
         <h3>Shoulders &amp; jaw release</h3>
         <p>For the tension you don't notice until someone points it out.</p>
       </article>
-      <article class="clipping clipping-3 clipping-muted">
+      <article class="clipping clipping-3">
         <div class="clipping-tape" aria-hidden="true"></div>
-        <div class="library-thumb">
-          <span class="placeholder-badge">Planned</span>
+        <div class="countdown-exercise">
+          <div class="countdown-number" id="countdownNumber">60</div>
+          <p class="countdown-line" id="countdownLine">Shake out your hands.</p>
+          <button class="btn btn-ghost countdown-btn" id="countdownToggle">Start 60s</button>
         </div>
         <h3>Before you present</h3>
         <p>A one-minute reset for the two minutes before you walk up front.</p>

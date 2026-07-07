@@ -402,6 +402,72 @@ p { margin: 0; }
   font-size: 0.85rem;
 }
 
+/* ---------- Shoulders & jaw release (click-through) ---------- */
+.release-exercise {
+  padding: 24px 22px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.release-visual {
+  width: 100px;
+  height: 100px;
+}
+.zone-mark {
+  transition: opacity 0.3s ease;
+}
+.release-step-text {
+  font-family: var(--font-hand);
+  font-size: 1.25rem;
+  color: var(--ink-soft);
+  text-align: center;
+  min-height: 32px;
+}
+.release-dots {
+  display: flex;
+  gap: 6px;
+}
+.release-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--line);
+  transition: background 0.2s ease;
+}
+.release-dot.active { background: var(--highlight-deep); }
+.release-btn {
+  padding: 10px 22px;
+  font-size: 0.85rem;
+}
+
+/* ---------- Before you present (countdown) ---------- */
+.countdown-exercise {
+  padding: 24px 22px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.countdown-number {
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1;
+}
+.countdown-line {
+  font-family: var(--font-hand);
+  font-size: 1.25rem;
+  color: var(--ink-soft);
+  text-align: center;
+  min-height: 32px;
+}
+.countdown-btn {
+  padding: 10px 22px;
+  font-size: 0.85rem;
+}
+
 /* ---------- Resources: highlighted alert box ---------- */
 .alert-box {
   position: relative;
