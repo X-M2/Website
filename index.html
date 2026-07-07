@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MindMatters — Today's Forecast</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="#home" class="logo">
+      <img src="logo-icon.png" alt="" class="logo-mark" aria-hidden="true">
+      <span class="logo-word">Mind<span class="logo-word-accent">Matters</span></span>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="primaryNav" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="primary-nav" id="primaryNav">
+      <a href="#home">Today</a>
+      <a href="#how-it-works">Reading the forecast</a>
+      <a href="#check-in">Log weather</a>
+      <a href="#library">Clearing skies</a>
+      <a href="#resources">Severe weather</a>
+      <a href="#about">About</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO: TODAY'S FORECAST -->
+  <section id="home" class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Entry no. 001 — Today's forecast</p>
+      <h1>Stress isn't a flaw.<br>It's just weather.</h1>
+      <span class="margin-note margin-note-1">ngl this actually helps</span>
+      <p class="hero-sub">
+        Some days are clear. Some days are a storm you saw coming and some
+        days it just rolls in. MindMatters is a short, honest way to log
+        today's weather before it builds into a front you can't see past.
+      </p>
+
+      <div class="weather-picker" role="group" aria-label="Try picking today's weather">
+        <p class="picker-label">Try it — what's today?</p>
+        <div class="picker-buttons">
+          <button class="picker-btn" data-weather="sunny" aria-pressed="false">Clear</button>
+          <button class="picker-btn" data-weather="cloudy" aria-pressed="false">Cloudy</button>
+          <button class="picker-btn" data-weather="stormy" aria-pressed="false">Stormy</button>
+          <button class="picker-btn" data-weather="clearing" aria-pressed="false">Clearing up</button>
+        </div>
+      </div>
+
+      <div class="hero-actions">
+        <a href="#check-in" class="btn btn-primary">Log today's weather</a>
+        <a href="#how-it-works" class="btn btn-ghost">How this works</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="forecast-card" id="forecastCard">
+        <div class="forecast-icon" id="forecastIcon" aria-hidden="true">
+          <!-- Cloudy (default) -->
+          <svg viewBox="0 0 200 160" class="icon-sketch">
+            <path d="M46 118 C24 118 14 100 28 86 C22 64 46 48 66 56 C74 34 112 30 124 52 C150 50 168 70 158 92 C172 96 172 118 152 120 Z"
+                  fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="forecast-caption" id="forecastCaption">Overcast, chance of deadlines later.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS: READING THE FORECAST -->
+  <section id="how-it-works" class="section">
+    <div class="section-head">
+      <p class="eyebrow">Reading the forecast</p>
+      <h2>Three lines in a notebook. That's it.</h2>
+    </div>
+
+    <div class="steps">
+      <article class="step">
+        <div class="step-icon" aria-hidden="true">
+          <svg viewBox="0 0 100 100" class="icon-sketch">
+            <path d="M20 55 C14 40 26 26 40 30 C44 16 68 14 76 28 C90 26 96 44 84 52 C90 62 80 72 68 68"
+                  fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="30" y1="80" x2="30" y2="86" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            <line x1="45" y1="80" x2="45" y2="88" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            <line x1="60" y1="80" x2="60" y2="85" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="step-mark">Entry 01</span>
+        <h3>Name today's weather</h3>
+        <p>Sunny, overcast, stormy — one honest word for how you actually feel right now.</p>
+      </article>
+
+      <article class="step">
+        <div class="step-icon" aria-hidden="true">
+          <svg viewBox="0 0 100 100" class="icon-sketch">
+            <circle cx="50" cy="46" r="26" fill="none" stroke="currentColor" stroke-width="3"/>
+            <path d="M50 20 L50 12 M74 30 L80 24 M26 30 L20 24 M50 72 C40 72 34 82 38 90"
+                  fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="step-mark">Entry 02</span>
+        <h3>Get a real forecast, not a template</h3>
+        <p>A short, specific read on today's weather — not a generic "drink water" tip list.</p>
+      </article>
+
+      <article class="step">
+        <div class="step-icon" aria-hidden="true">
+          <svg viewBox="0 0 100 100" class="icon-sketch">
+            <path d="M18 60 C14 46 28 34 40 38 C46 20 74 18 82 36 C94 36 98 52 88 58"
+                  fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="64" cy="30" r="12" fill="none" stroke="currentColor" stroke-width="3"/>
+          </svg>
+        </div>
+        <span class="step-mark">Entry 03</span>
+        <h3>Let it clear, in your own time</h3>
+        <p>A short guided break if you want one. Skipping it is a valid forecast too.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- CHECK-IN: LOG TODAY'S WEATHER (sticky note placeholder) -->
+  <section id="check-in" class="section section-alt">
+    <div class="section-head">
+      <p class="eyebrow">Log today's weather</p>
+      <h2>Write today's entry</h2>
+    </div>
+
+    <div class="sticky-note-wrap">
+      <div class="sticky-note">
+        <span class="pin" aria-hidden="true"></span>
+        <span class="placeholder-badge">Coming soon</span>
+        <p class="placeholder-title">The check-in chatbot pins in right here.</p>
+        <p class="placeholder-sub">This page in the notebook is reserved — the live conversation slots in without shifting anything else once it's connected.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIBRARY: CLEARING SKIES -->
+  <section id="library" class="section">
+    <div class="section-head">
+      <p class="eyebrow">Clearing skies</p>
+      <h2>Clippings taped into the notebook</h2>
+    </div>
+
+    <div class="library-grid">
+      <article class="clipping clipping-1">
+        <div class="clipping-tape" aria-hidden="true"></div>
+        <div class="library-thumb">
+          <span class="placeholder-badge">Coming soon</span>
+        </div>
+        <h3>Breathing reset</h3>
+        <p>A short guided breathing sequence for the ten minutes before something stressful.</p>
+      </article>
+      <article class="clipping clipping-2 clipping-muted">
+        <div class="clipping-tape" aria-hidden="true"></div>
+        <div class="library-thumb">
+          <span class="placeholder-badge">Planned</span>
+        </div>
+        <h3>Shoulders &amp; jaw release</h3>
+        <p>For the tension you don't notice until someone points it out.</p>
+      </article>
+      <article class="clipping clipping-3 clipping-muted">
+        <div class="clipping-tape" aria-hidden="true"></div>
+        <div class="library-thumb">
+          <span class="placeholder-badge">Planned</span>
+        </div>
+        <h3>Before you present</h3>
+        <p>A one-minute reset for the two minutes before you walk up front.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- RESOURCES: SEVERE WEATHER ALERTS -->
+  <section id="resources" class="section section-alt">
+    <div class="section-head">
+      <p class="eyebrow">Severe weather</p>
+      <h2>If today's forecast is more than MindMatters can cover</h2>
+    </div>
+
+    <div class="alert-box">
+      <span class="alert-tab">Highlighted</span>
+      <div class="resource-list">
+        <article class="resource-item">
+          <h3>Your school's counselling office</h3>
+          <p>Every polytechnic has one, and appointments are confidential. MindMatters is a first step, not a replacement.</p>
+        </article>
+        <article class="resource-item">
+          <h3>National Care Hotline</h3>
+          <p>1800‑202‑6868 — for anyone in Singapore who needs to talk something through.</p>
+        </article>
+        <article class="resource-item">
+          <h3>Samaritans of Singapore (SOS)</h3>
+          <p>1‑767 (24 hours) — if things feel like more than you can carry alone right now.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT: INDEX CARD -->
+  <section id="about" class="section about">
+    <div class="section-head">
+      <p class="eyebrow">About</p>
+      <h2>Who's keeping this notebook</h2>
+    </div>
+
+    <div class="index-card">
+      <div class="paperclip" aria-hidden="true">
+        <svg viewBox="0 0 40 90" class="icon-sketch">
+          <path d="M20 10 C34 10 34 30 20 30 L20 65 C20 75 32 75 32 65 L32 35"
+                fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <p class="about-copy">
+        MindMatters started as a Final Year Assignment by a team of polytechnic
+        students who noticed the same thing in themselves and their classmates:
+        stress rarely announces itself until it's already loud. This notebook
+        is our attempt at catching it earlier — small, honest, and easy to
+        reach for before the weather turns.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>MindMatters — a student project, not a medical service.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
