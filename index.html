@@ -131,21 +131,19 @@
   </section>
 
   <!-- CHECK-IN: LOG TODAY'S WEATHER (sticky note placeholder) -->
-  <section id="check-in" class="section section-alt">
-    <div class="section-head">
-      <p class="eyebrow">Log today's weather</p>
-      <h2>Write today's entry</h2>
-    </div>
+<section id="check-in" class="section section-alt">
+  <div class="section-head">
+    <p class="eyebrow">Log today's weather</p>
+    <h2>Write today's entry</h2>
+  </div>
 
-    <div class="sticky-note-wrap">
-      <div class="sticky-note">
-        <span class="pin" aria-hidden="true"></span>
-        <span class="placeholder-badge">Coming soon</span>
-        <p class="placeholder-title">The check-in chatbot pins in right here.</p>
-        <p class="placeholder-sub">This page in the notebook is reserved — the live conversation slots in without shifting anything else once it's connected.</p>
-      </div>
+  <div class="sticky-note-wrap">
+    <div class="sticky-note sticky-note-chat">
+      <span class="pin" aria-hidden="true"></span>
+      <div id="bp-webchat-container"></div>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- LIBRARY: CLEARING SKIES -->
   <section id="library" class="section">
@@ -240,8 +238,26 @@
 
 <script src="script.js"></script>
 
+<!-- Botpress chatbot, embedded inline instead of floating -->
+<script src="https://cdn.botpress.cloud/webchat/v2/inject.js"></script>
+<script>
+  window.botpressWebChat.init({
+    "botId": "e4f5c228-6b31-4ada-895b-720aaa643c0d",
+    "hostUrl": "https://cdn.botpress.cloud/webchat/v2",
+    "messagingUrl": "https://messaging.botpress.cloud",
+    "containerWidth": "100%",
+    "layoutWidth": "100%",
+    "hideWidget": true,
+    "disableAnimations": true,
+    "className": "bp-embedded"
+  });
 
-<script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
-<script src="https://files.bpcontent.cloud/2026/07/03/06/20260703065441-HH4AR7KN.js" defer></script>
+  window.botpressWebChat.onEvent(
+    () => {
+      window.botpressWebChat.sendEvent({ type: "show" });
+    },
+    ["LIFECYCLE.LOADED"]
+  );
+</script>
 </body>
 </html>
