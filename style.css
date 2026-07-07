@@ -276,6 +276,29 @@ p { margin: 0; }
   background: var(--highlight-deep);
   box-shadow: 0 3px 6px rgba(0,0,0,0.25);
 }
+
+/* Chat variant of the sticky note — taller, holds the embedded Botpress iframe */
+.sticky-note-chat {
+  padding: 44px 16px 24px;
+  max-width: 460px;
+}
+#bp-webchat-container {
+  width: 100%;
+  min-height: 520px;
+}
+
+/* Force Botpress's injected widget to render inline instead of as a floating bubble */
+#bp-webchat-container iframe,
+.bp-widget-web,
+#bp-web-widget {
+  position: static !important;
+  width: 100% !important;
+  height: 520px !important;
+  max-height: none !important;
+  border: none !important;
+  border-radius: 10px;
+  box-shadow: none !important;
+}
 .placeholder-badge {
   display: inline-block; font-family: var(--font-mono); font-size: 0.7rem;
   text-transform: uppercase; letter-spacing: 0.05em;
@@ -372,13 +395,4 @@ p { margin: 0; }
   .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .nav-toggle.open span:nth-child(2) { opacity: 0; }
   .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-}
-
-#bp-webchat-container iframe,
-#bp-webchat.bp-embedded {
-  position: static !important;
-  width: 100% !important;
-  height: 560px !important;
-  border: none !important;
-  border-radius: 12px;
 }

@@ -130,20 +130,20 @@
     </div>
   </section>
 
-  <!-- CHECK-IN: LOG TODAY'S WEATHER (sticky note placeholder) -->
-<section id="check-in" class="section section-alt">
-  <div class="section-head">
-    <p class="eyebrow">Log today's weather</p>
-    <h2>Write today's entry</h2>
-  </div>
-
-  <div class="sticky-note-wrap">
-    <div class="sticky-note sticky-note-chat">
-      <span class="pin" aria-hidden="true"></span>
-      <div id="bp-webchat-container"></div>
+  <!-- CHECK-IN: LOG TODAY'S WEATHER (live Botpress chatbot) -->
+  <section id="check-in" class="section section-alt">
+    <div class="section-head">
+      <p class="eyebrow">Log today's weather</p>
+      <h2>Write today's entry</h2>
     </div>
-  </div>
-</section>
+
+    <div class="sticky-note-wrap">
+      <div class="sticky-note sticky-note-chat">
+        <span class="pin" aria-hidden="true"></span>
+        <div id="bp-webchat-container"></div>
+      </div>
+    </div>
+  </section>
 
   <!-- LIBRARY: CLEARING SKIES -->
   <section id="library" class="section">
@@ -221,7 +221,7 @@
         </svg>
       </div>
       <p class="about-copy">
-        MindMatters started as a Assignment by a team of polytechnic
+        MindMatters started as a Final Year Assignment by a team of polytechnic
         students who noticed the same thing in themselves and their classmates:
         stress rarely announces itself until it's already loud. This notebook
         is our attempt at catching it earlier — small, honest, and easy to
@@ -238,7 +238,7 @@
 
 <script src="script.js"></script>
 
-<!-- Botpress chatbot, embedded inline instead of floating -->
+<!-- Botpress chatbot, embedded inline in the Check-In section (not floating) -->
 <script src="https://cdn.botpress.cloud/webchat/v2/inject.js"></script>
 <script>
   window.botpressWebChat.init({
@@ -259,5 +259,6 @@
     ["LIFECYCLE.LOADED"]
   );
 </script>
+
 </body>
 </html>
