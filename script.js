@@ -83,3 +83,64 @@ pickerButtons.forEach((btn) => {
     });
   });
 });
+
+// ---------- Interactive breathing exercise (Library section) ----------
+// A real 30-second guided cycle, synced to the CSS ring animation (6s per breath).
+// Phases: inhale (0-2.4s), hold (2.4-3.6s), exhale (3.6-6s) — matches the
+// scale keyframes in style.css (40%/60% hold plateau on a 6s loop).
+
+const breathingRing = document.getElementById("libraryRing");
+const breathingLabelEl = document.getElementById("libraryRingLabel");
+const breathingToggle = document.getElementById("breathingToggle");
+
+let breathingTimer = null;
+let breathingPhaseTimer = null;
+let breathingActive = false;
+
+function runBreathingPhaseCycle() {
+  const phases = [
+    { text: "Breathe in", duration: 2400 },
+    { text: "Hold", duration: 1200 },
+    { text: "Breathe out", duration: 2400 }
+  ];
+  let i = 0;
+
+  function nextPhase() {
+    if (!breathingActive) return;
+    breathingLabelEl.textContent = phases[i].text;
+    breathingPhaseTimer = setTimeout(() => {
+      i = (i + 1) % phases.length;
+      nextPhase();
+    }, phases[i].duration);
+  }
+  nextPhase();
+}
+
+function startBreathing() {
+  breathingActive = true;
+  breathingRing.classList.add("active");
+  breathingToggle.textContent = "Stop";
+  runBreathingPhaseCycle();
+
+  // Auto-stop after 30 seconds
+  breathingTimer = setTimeout(stopBreathing, 30000);
+}
+
+function stopBreathing() {
+  breathingActive = false;
+  breathingRing.classList.remove("active");
+  breathingLabelEl.textContent = "Ready";
+  breathingToggle.textContent = "Try 30 seconds";
+  clearTimeout(breathingTimer);
+  clearTimeout(breathingPhaseTimer);
+}
+
+if (breathingToggle) {
+  breathingToggle.addEventListener("click", () => {
+    if (breathingActive) {
+      stopBreathing();
+    } else {
+      startBreathing();
+    }
+  });
+}

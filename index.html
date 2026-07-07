@@ -153,10 +153,18 @@
     </div>
 
     <div class="library-grid">
-      <article class="clipping clipping-1">
+      <article class="clipping clipping-1 clipping-breathing">
         <div class="clipping-tape" aria-hidden="true"></div>
-        <div class="library-thumb">
-          <span class="placeholder-badge">Coming soon</span>
+        <div class="breathing-exercise">
+          <div class="breathing-ring-wrap">
+            <div class="breathing-ring" id="libraryRing">
+              <div class="ring ring-1"></div>
+              <div class="ring ring-2"></div>
+              <div class="ring ring-3"></div>
+              <span class="ring-label" id="libraryRingLabel">Ready</span>
+            </div>
+          </div>
+          <button class="btn btn-ghost breathing-btn" id="breathingToggle">Try 30 seconds</button>
         </div>
         <h3>Breathing reset</h3>
         <p>A short guided breathing sequence for the ten minutes before something stressful.</p>
