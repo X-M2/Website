@@ -282,13 +282,25 @@ p { margin: 0; }
   padding: 44px 16px 24px;
   max-width: 460px;
 }
-#bp-webchat-container {
+#bp-embedded-webchat {
   width: 100%;
   min-height: 520px;
 }
 
+.chat-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 420px;
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.55);
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
 /* Force Botpress's injected widget to render inline instead of as a floating bubble */
-#bp-webchat-container iframe,
+#bp-embedded-webchat iframe,
 .bp-widget-web,
 #bp-web-widget {
   position: static !important;

@@ -140,7 +140,7 @@
     <div class="sticky-note-wrap">
       <div class="sticky-note sticky-note-chat">
         <span class="pin" aria-hidden="true"></span>
-        <div id="bp-webchat-container"></div>
+        <div id="bp-embedded-webchat"></div>
       </div>
     </div>
   </section>
@@ -238,27 +238,9 @@
 
 <script src="script.js"></script>
 
-<!-- Botpress chatbot, embedded inline in the Check-In section (not floating) -->
-<script src="https://cdn.botpress.cloud/webchat/v2/inject.js"></script>
-<script>
-  window.botpressWebChat.init({
-    "botId": "e4f5c228-6b31-4ada-895b-720aaa643c0d",
-    "hostUrl": "https://cdn.botpress.cloud/webchat/v2",
-    "messagingUrl": "https://messaging.botpress.cloud",
-    "containerWidth": "100%",
-    "layoutWidth": "100%",
-    "hideWidget": true,
-    "disableAnimations": true,
-    "className": "bp-embedded"
-  });
-
-  window.botpressWebChat.onEvent(
-    () => {
-      window.botpressWebChat.sendEvent({ type: "show" });
-    },
-    ["LIFECYCLE.LOADED"]
-  );
-</script>
+<!-- Botpress chatbot embed -->
+<script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
+<script src="https://files.bpcontent.cloud/2026/07/03/06/20260703065441-HH4AR7KN.js" defer></script>
 
 </body>
 </html>
