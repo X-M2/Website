@@ -111,10 +111,66 @@ function initBotpressListener() {
       }
     });
 
+    // Helper function to extract message text from complex Botpress webchat object structure
+    function extractTextFromMessage(msg) {
+      if (!msg) return null;
+      if (typeof msg.text === "string") return msg.text;
+      if (msg.payload && typeof msg.payload.text === "string") return msg.payload.text;
+      if (msg.payload && typeof msg.payload.body === "string") return msg.payload.body;
+
+      if (msg.block) {
+        const blockVal = msg.block;
+        if (blockVal.block) {
+          const innerBlock = blockVal.block;
+          if (typeof innerBlock.text === "string") return innerBlock.text;
+          if (typeof innerBlock.body === "string") return innerBlock.body;
+          if (typeof innerBlock.value === "string") return innerBlock.value;
+          if (innerBlock.payload && typeof innerBlock.payload.text === "string") return innerBlock.payload.text;
+          if (innerBlock.payload && typeof innerBlock.payload.body === "string") return innerBlock.payload.body;
+
+          if (Array.isArray(innerBlock.items)) {
+            for (const item of innerBlock.items) {
+              if (item && item.payload && typeof item.payload.text === "string") {
+                return item.payload.text;
+              }
+            }
+          }
+          
+          // Recursive fallback search on block
+          const nested = findTextNested(innerBlock);
+          if (nested) return nested;
+        }
+      }
+      return null;
+    }
+
+    function findTextNested(obj) {
+      if (!obj) return null;
+      if (typeof obj === "string") return obj;
+      if (typeof obj !== "object") return null;
+
+      const priorityKeys = ["text", "body", "value", "content", "payload", "items"];
+      for (const key of priorityKeys) {
+        if (obj[key]) {
+          const found = findTextNested(obj[key]);
+          if (found) return found;
+        }
+      }
+
+      for (const key in obj) {
+        if (obj.hasOwnProperty(key) && !priorityKeys.includes(key) && key !== "type") {
+          const found = findTextNested(obj[key]);
+          if (found) return found;
+        }
+      }
+      return null;
+    }
+
     // Fallback: Listen to regular chat messages for weather keywords (e.g. "weather: stormy")
     window.botpress.on("message", (message) => {
       console.log("MindMatters: Botpress message received:", message);
-      const text = message?.payload?.text || message?.text || (message?.payload && message.payload.body);
+      const text = extractTextFromMessage(message);
+      console.log("MindMatters: Extracted text from message:", text);
       if (text && typeof text === "string") {
         const cleanText = text.toLowerCase();
         if (cleanText.includes("weather:") || cleanText.includes("weather_update:")) {
