@@ -108,6 +108,7 @@ function initBotpressListener() {
       console.log("MindMatters: Botpress custom event received:", event);
       if (event && event.action === "weather_update" && event.weather) {
         applyWeather(event.weather);
+        document.getElementById("home")?.scrollIntoView({ behavior: "smooth" });
       }
     });
 
@@ -183,6 +184,7 @@ function initBotpressListener() {
           if (weatherState) {
             console.log(`MindMatters: Text parser matched weather state: "${weatherState}"`);
             applyWeather(weatherState);
+            document.getElementById("home")?.scrollIntoView({ behavior: "smooth" });
           }
         }
       }
