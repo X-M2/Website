@@ -384,3 +384,31 @@ if (countdownToggle) {
     }
   });
 }
+
+// ---------- Resource Library Filtering ----------
+// Allow users to filter resources by category
+
+const filterButtons = document.querySelectorAll(".filter-btn");
+const resourceCards = document.querySelectorAll(".resource-card");
+
+function filterResources(category) {
+  resourceCards.forEach((card) => {
+    if (category === "all" || card.dataset.category === category) {
+      card.classList.remove("hidden");
+    } else {
+      card.classList.add("hidden");
+    }
+  });
+}
+
+filterButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    // Update active button
+    filterButtons.forEach((b) => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    // Filter resources
+    const category = btn.dataset.filter;
+    filterResources(category);
+  });
+});
