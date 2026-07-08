@@ -62,6 +62,160 @@ body.theme-cloudy { background-color: var(--paper-cloudy); }
 body.theme-stormy { background-color: var(--paper-stormy); }
 body.theme-clearing { background-color: var(--paper-clearing); }
 
+/* Ensure real content always renders above the ambient weather layer */
+.site-header, main, .site-footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* ==================================================================
+   AMBIENT WEATHER EFFECTS
+   A restrained, atmospheric layer behind all content. Every element
+   here is decorative (aria-hidden, pointer-events: none), low-opacity,
+   and sits only in the negative space around your white content cards
+   — so text contrast and readability are never affected.
+   ================================================================== */
+
+.weather-fx {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Sub-layers are hidden by default; each theme reveals only the ones
+   that make sense for that weather, with a slow cross-fade */
+.fx-sun, .fx-rays, .fx-clouds, .fx-rain, .fx-sparkle {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.4s ease;
+}
+
+/* ---------- Sun glow + rays (sunny, and faintly in clearing) ---------- */
+.fx-sun {
+  background: radial-gradient(circle at 82% 12%, rgba(232, 179, 77, 0.35), transparent 42%);
+  animation: fx-sun-pulse 8s ease-in-out infinite;
+}
+@keyframes fx-sun-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.fx-rays {
+  transform-origin: 82% 12%;
+  animation: fx-rays-rotate 120s linear infinite;
+}
+.fx-rays span {
+  position: absolute;
+  top: 12%;
+  left: 82%;
+  width: 1px;
+  height: 46vh;
+  background: linear-gradient(to bottom, rgba(232, 179, 77, 0.16), transparent);
+  transform-origin: top center;
+}
+.fx-rays span:nth-child(1) { transform: rotate(0deg); }
+.fx-rays span:nth-child(2) { transform: rotate(60deg); }
+.fx-rays span:nth-child(3) { transform: rotate(120deg); }
+.fx-rays span:nth-child(4) { transform: rotate(180deg); }
+.fx-rays span:nth-child(5) { transform: rotate(240deg); }
+.fx-rays span:nth-child(6) { transform: rotate(300deg); }
+@keyframes fx-rays-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+body.theme-sunny .fx-sun,
+body.theme-sunny .fx-rays { opacity: 1; }
+body.theme-clearing .fx-sun { opacity: 0.6; }
+
+/* ---------- Drifting clouds (cloudy, and clearing as they drift away) ---------- */
+.fx-cloud {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(18px);
+  background: radial-gradient(circle, rgba(92, 102, 96, 0.16), transparent 70%);
+}
+.fx-cloud-1 { width: 40vw; height: 40vw; top: 4%; left: -20%; animation: fx-drift-slow 70s linear infinite; }
+.fx-cloud-2 { width: 30vw; height: 30vw; top: 32%; left: -35%; animation: fx-drift-slow 95s linear infinite 8s; }
+.fx-cloud-3 { width: 24vw; height: 24vw; top: 62%; left: -15%; animation: fx-drift-slow 80s linear infinite 20s; }
+
+@keyframes fx-drift-slow {
+  from { transform: translateX(0); }
+  to { transform: translateX(140vw); }
+}
+
+body.theme-cloudy .fx-clouds { opacity: 1; }
+body.theme-stormy .fx-clouds { opacity: 1; }
+body.theme-clearing .fx-clouds { opacity: 0.5; }
+
+/* ---------- Falling rain (stormy) ---------- */
+.fx-rain span {
+  position: absolute;
+  top: -10%;
+  width: 1px;
+  height: 3.5vh;
+  background: linear-gradient(to bottom, transparent, rgba(75, 90, 120, 0.4));
+  animation: fx-rain-fall 1.1s linear infinite;
+}
+.fx-rain span:nth-child(1)  { left: 4%;  animation-delay: 0s;    animation-duration: 1.0s; }
+.fx-rain span:nth-child(2)  { left: 12%; animation-delay: 0.3s;  animation-duration: 1.2s; }
+.fx-rain span:nth-child(3)  { left: 20%; animation-delay: 0.6s;  animation-duration: 0.9s; }
+.fx-rain span:nth-child(4)  { left: 28%; animation-delay: 0.1s;  animation-duration: 1.1s; }
+.fx-rain span:nth-child(5)  { left: 36%; animation-delay: 0.5s;  animation-duration: 1.3s; }
+.fx-rain span:nth-child(6)  { left: 44%; animation-delay: 0.2s;  animation-duration: 1.0s; }
+.fx-rain span:nth-child(7)  { left: 52%; animation-delay: 0.7s;  animation-duration: 1.15s; }
+.fx-rain span:nth-child(8)  { left: 60%; animation-delay: 0.4s;  animation-duration: 0.95s; }
+.fx-rain span:nth-child(9)  { left: 68%; animation-delay: 0.15s; animation-duration: 1.25s; }
+.fx-rain span:nth-child(10) { left: 76%; animation-delay: 0.55s; animation-duration: 1.05s; }
+.fx-rain span:nth-child(11) { left: 84%; animation-delay: 0.35s; animation-duration: 1.2s; }
+.fx-rain span:nth-child(12) { left: 90%; animation-delay: 0.65s; animation-duration: 0.9s; }
+.fx-rain span:nth-child(13) { left: 96%; animation-delay: 0.25s; animation-duration: 1.1s; }
+.fx-rain span:nth-child(14) { left: 8%;  animation-delay: 0.8s;  animation-duration: 1.05s; }
+
+@keyframes fx-rain-fall {
+  from { transform: translateY(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  to { transform: translateY(115vh); opacity: 0; }
+}
+
+body.theme-stormy .fx-rain { opacity: 1; }
+
+/* ---------- Rising sparkles (clearing) ---------- */
+.fx-sparkle span {
+  position: absolute;
+  bottom: -4%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--clearing);
+  animation: fx-sparkle-rise 9s ease-in infinite;
+}
+.fx-sparkle span:nth-child(1) { left: 14%; animation-delay: 0s; }
+.fx-sparkle span:nth-child(2) { left: 30%; animation-delay: 1.6s; }
+.fx-sparkle span:nth-child(3) { left: 48%; animation-delay: 3.2s; }
+.fx-sparkle span:nth-child(4) { left: 64%; animation-delay: 0.8s; }
+.fx-sparkle span:nth-child(5) { left: 78%; animation-delay: 4.4s; }
+.fx-sparkle span:nth-child(6) { left: 90%; animation-delay: 2.4s; }
+
+@keyframes fx-sparkle-rise {
+  0% { transform: translateY(0) scale(0.6); opacity: 0; }
+  15% { opacity: 0.8; }
+  85% { opacity: 0.5; }
+  100% { transform: translateY(-90vh) scale(1); opacity: 0; }
+}
+
+body.theme-clearing .fx-sparkle { opacity: 1; }
+
+/* Respect reduced-motion: switch off all ambient animation entirely
+   rather than leaving elements frozen mid-frame */
+@media (prefers-reduced-motion: reduce) {
+  .weather-fx { display: none; }
+}
+
 .skip-link {
   position: absolute;
   left: -999px;

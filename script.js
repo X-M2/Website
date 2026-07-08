@@ -16,9 +16,11 @@ primaryNav.querySelectorAll("a").forEach((link) => {
   });
 });
 
-// ---------- Weather picker (hero) ----------
-// Purely local/client-side — swaps a hand-sketched icon + caption.
-// No AI or backend involved; this is just a preview interaction.
+// ---------- Weather system (shared by hero picker AND the live chatbot) ----------
+// applyWeather() is the single source of truth for "what does the site look like
+// for this weather state" — the manual picker buttons and the real Botpress
+// classification both call the exact same function, so they can never drift
+// out of sync with each other.
 
 const forecastCard = document.getElementById("forecastCard");
 const forecastIcon = document.getElementById("forecastIcon");
@@ -59,30 +61,50 @@ const weatherData = {
   }
 };
 
+function applyWeather(key) {
+  const data = weatherData[key];
+  if (!data) return;
+
+  // Hero card state (icon color etc.)
+  forecastCard.className = "forecast-card state-" + key;
+
+  // Subtle whole-page tint — background wash only, text stays readable
+  document.body.className = "theme-" + key;
+
+  // Update icon + caption
+  forecastIcon.innerHTML = data.icon;
+  forecastCaption.textContent = data.caption;
+
+  // Sync the picker buttons' pressed state too, so if the bot changes the
+  // weather, the matching button visually shows as "active" as well
+  pickerButtons.forEach((b) => {
+    const match = b.dataset.weather === key;
+    b.classList.toggle("active", match);
+    b.setAttribute("aria-pressed", match ? "true" : "false");
+  });
+}
+
+// Manual picker buttons (hero) — a quick local preview, no AI involved
 pickerButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
-    const key = btn.dataset.weather;
-    const data = weatherData[key];
-    if (!data) return;
-
-    // Update card state class for color theming
-    forecastCard.className = "forecast-card state-" + key;
-
-    // Subtle whole-page tint (Option A) — just a background wash,
-    // text/nav/sections all stay exactly as they are
-    document.body.className = "theme-" + key;
-
-    // Update icon + caption
-    forecastIcon.innerHTML = data.icon;
-    forecastCaption.textContent = data.caption;
-
-    // Update pressed state on buttons
-    pickerButtons.forEach((b) => {
-      b.classList.toggle("active", b === btn);
-      b.setAttribute("aria-pressed", b === btn ? "true" : "false");
-    });
+    applyWeather(btn.dataset.weather);
   });
 });
+
+// ---------- Live weather updates from the Botpress chatbot ----------
+// The bot's flow sends a "Send Custom Event" card after classifying the
+// student's mood, with a payload like: {"action":"weather_update","weather":"stormy"}
+// This listens for that and calls the exact same applyWeather() function
+// above — so a real conversation genuinely changes the site's mood, not
+// just the manual demo buttons.
+
+if (window.botpress && typeof window.botpress.on === "function") {
+  window.botpress.on("customEvent", (event) => {
+    if (event && event.action === "weather_update" && event.weather) {
+      applyWeather(event.weather);
+    }
+  });
+}
 
 // ---------- Interactive breathing exercise (Library section) ----------
 // A real 30-second guided cycle, synced to the CSS ring animation (6s per breath).
