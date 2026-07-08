@@ -72,32 +72,34 @@
         today's weather before it builds into a front you can't see past.
       </p>
 
-      <div class="weather-picker" role="group" aria-label="Try picking today's weather">
-        <p class="picker-label">Try it — what's today?</p>
-        <div class="picker-buttons">
-          <button class="picker-btn" data-weather="sunny" aria-pressed="false">Clear</button>
-          <button class="picker-btn" data-weather="cloudy" aria-pressed="false">Cloudy</button>
-          <button class="picker-btn" data-weather="stormy" aria-pressed="false">Stormy</button>
-          <button class="picker-btn" data-weather="clearing" aria-pressed="false">Clearing up</button>
+      <div class="weather-section">
+        <div class="weather-picker" role="group" aria-label="Try picking today's weather">
+          <p class="picker-label">Try it — what's today?</p>
+          <div class="picker-buttons">
+            <button class="picker-btn" data-weather="sunny" aria-pressed="false">Clear</button>
+            <button class="picker-btn" data-weather="cloudy" aria-pressed="false">Cloudy</button>
+            <button class="picker-btn" data-weather="stormy" aria-pressed="false">Stormy</button>
+            <button class="picker-btn" data-weather="clearing" aria-pressed="false">Clearing up</button>
+          </div>
+        </div>
+
+        <div class="hero-visual-inline">
+          <div class="forecast-card" id="forecastCard">
+            <div class="forecast-icon" id="forecastIcon" aria-hidden="true">
+              <!-- Cloudy (default) -->
+              <svg viewBox="0 0 200 160" class="icon-sketch">
+                <path d="M46 118 C24 118 14 100 28 86 C22 64 46 48 66 56 C74 34 112 30 124 52 C150 50 168 70 158 92 C172 96 172 118 152 120 Z"
+                      fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <p class="forecast-caption" id="forecastCaption">Overcast, chance of deadlines later.</p>
+          </div>
         </div>
       </div>
 
       <div class="hero-actions">
         <a href="#check-in" class="btn btn-primary">Log today's weather</a>
         <a href="#how-it-works" class="btn btn-ghost">How this works</a>
-      </div>
-    </div>
-
-    <div class="hero-visual">
-      <div class="forecast-card" id="forecastCard">
-        <div class="forecast-icon" id="forecastIcon" aria-hidden="true">
-          <!-- Cloudy (default) -->
-          <svg viewBox="0 0 200 160" class="icon-sketch">
-            <path d="M46 118 C24 118 14 100 28 86 C22 64 46 48 66 56 C74 34 112 30 124 52 C150 50 168 70 158 92 C172 96 172 118 152 120 Z"
-                  fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <p class="forecast-caption" id="forecastCaption">Overcast, chance of deadlines later.</p>
       </div>
     </div>
   </section>
@@ -284,8 +286,8 @@
       <!-- ARTICLES -->
       <article class="resource-card resource-article" data-category="articles">
         <div class="resource-badge badge-article">Article</div>
-        <h3>Understanding Stress: When Good Pressure Becomes Harmful</h3>
-        <p class="resource-excerpt">Learn the difference between eustress (good stress) and distress, and how to recognize when stress is affecting your health.</p>
+        <h3>Exam Stress in Singapore: Surviving A-Levels and O-Levels with Sanity</h3>
+        <p class="resource-excerpt">Singapore's education system is intense. Learn the difference between good pressure and burnout, and manage stress during peak exam periods.</p>
         <div class="resource-meta">
           <span class="read-time">5 min read</span>
           <a href="#" class="resource-link">Read →</a>
@@ -294,8 +296,8 @@
 
       <article class="resource-card resource-article" data-category="articles">
         <div class="resource-badge badge-article">Article</div>
-        <h3>Sleep & Stress: How Quality Sleep Transforms Your Day</h3>
-        <p class="resource-excerpt">Explore the deep connection between sleep deprivation and anxiety. Practical tips to improve your sleep hygiene tonight.</p>
+        <h3>Sleep in the Tropics: How Humidity & Heat Affect Your Rest</h3>
+        <p class="resource-excerpt">Singapore's climate makes sleep challenging. Explore how tropical heat impacts anxiety and sleep quality, plus practical tips to cool down at night.</p>
         <div class="resource-meta">
           <span class="read-time">6 min read</span>
           <a href="#" class="resource-link">Read →</a>
@@ -304,8 +306,8 @@
 
       <article class="resource-card resource-article" data-category="articles">
         <div class="resource-badge badge-article">Article</div>
-        <h3>Anxiety & Perfectionism: When "Good Enough" Really Is Good Enough</h3>
-        <p class="resource-excerpt">Breaking the perfectionism trap that feeds anxiety. Realistic strategies for students and working professionals.</p>
+        <h3>The Singapore Grind: Perfectionism & High Achievement Anxiety</h3>
+        <p class="resource-excerpt">Singapore's culture of excellence often breeds perfectionism and anxiety. Break free from the pressure to always be the best.</p>
         <div class="resource-meta">
           <span class="read-time">7 min read</span>
           <a href="#" class="resource-link">Read →</a>
@@ -314,8 +316,8 @@
 
       <article class="resource-card resource-article" data-category="articles">
         <div class="resource-badge badge-article">Article</div>
-        <h3>Social Anxiety: Navigating Social Situations with Confidence</h3>
-        <p class="resource-excerpt">Practical tips for managing social anxiety at university, work events, and casual gatherings with friends.</p>
+        <h3>Social Anxiety in a Fast-Paced Singapore: Networking & Belonging</h3>
+        <p class="resource-excerpt">Navigate social anxiety at polytechnic, work events, and networking sessions. Tips for building genuine connections in Singapore's fast-paced culture.</p>
         <div class="resource-meta">
           <span class="read-time">5 min read</span>
           <a href="#" class="resource-link">Read →</a>
@@ -325,8 +327,8 @@
       <!-- VIDEOS -->
       <article class="resource-card resource-video" data-category="videos">
         <div class="resource-badge badge-video">Video</div>
-        <h3>Meditation for Beginners: 10-Minute Daily Calm</h3>
-        <p class="resource-excerpt">A gentle guided meditation perfect for beginners. No experience needed. Settle into 10 minutes of peace.</p>
+        <h3>Guided Meditation for Singapore Students: 10-Minute Calm</h3>
+        <p class="resource-excerpt">A gentle guided meditation tailored for Singaporean students. Perfect for study breaks during exam season or stressful projects.</p>
         <div class="resource-meta">
           <span class="read-time">10 min video</span>
           <a href="https://www.youtube.com/embed/ZToicYcHIOU" class="resource-link" target="_blank">Watch →</a>
@@ -335,18 +337,18 @@
 
       <article class="resource-card resource-video" data-category="videos">
         <div class="resource-badge badge-video">Video</div>
-        <h3>Progressive Muscle Relaxation Technique</h3>
-        <p class="resource-excerpt">Learn to release physical tension step by step. A scientifically-backed method for reducing anxiety and stress.</p>
+        <h3>Quick Stress Relief: MRT-Friendly Breathing for Commuters</h3>
+        <p class="resource-excerpt">Practical stress relief techniques you can do on your MRT commute or during a quick break. No space needed, all discretion guaranteed.</p>
         <div class="resource-meta">
-          <span class="read-time">8 min video</span>
+          <span class="read-time">5 min video</span>
           <a href="#" class="resource-link" target="_blank">Watch →</a>
         </div>
       </article>
 
       <article class="resource-card resource-video" data-category="videos">
         <div class="resource-badge badge-video">Video</div>
-        <h3>Exercise & Mental Health: Moving Your Way to Wellness</h3>
-        <p class="resource-excerpt">How just 20 minutes of movement can significantly boost your mood and reduce stress. Examples included.</p>
+        <h3>Movement & Mental Health: Indoor Exercise for Singapore's Heat</h3>
+        <p class="resource-excerpt">How indoor sports (badminton, basketball, swimming) can boost your mood and reduce anxiety. Perfect for Singapore's tropical climate.</p>
         <div class="resource-meta">
           <span class="read-time">12 min video</span>
           <a href="#" class="resource-link" target="_blank">Watch →</a>
@@ -467,15 +469,15 @@
 
     <div class="locate-container">
       <div class="locate-map">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.7766215169227!2d103.94579!3d1.33654!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da11b86d91b899%3A0x2d0dff5bc5d91d7d!2sRaffles%20Polytechnic!5e0!3m2!1sen!2ssg!4v1234567890" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Raffles Polytechnic Counseling Office Location"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.823456789!2d103.8345!3d1.3733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da14e9c5c5c5c5%3A0xabcdef1234567890!2sRepublic%20Polytechnic!5e0!3m2!1sen!2ssg!4v1234567890" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Republic Polytechnic Counseling Office Location"></iframe>
       </div>
       <div class="locate-info">
         <article class="locate-card">
           <h3>Counselling Office</h3>
           <p class="locate-address">
-            <strong>Raffles Polytechnic</strong><br>
-            750 Chai Chee Road<br>
-            Singapore 469000
+            <strong>Republic Polytechnic</strong><br>
+            70 Woodlands Ave 9<br>
+            Singapore 737927
           </p>
           <p class="locate-hours">
             <strong>Opening Hours:</strong><br>
@@ -484,8 +486,8 @@
           </p>
           <p class="locate-phone">
             <strong>Phone:</strong><br>
-            +65 6570 1234 (Main)<br>
-            <a href="tel:+6565701234" class="locate-link">Call now</a>
+            +65 6159 2288 (Main)<br>
+            <a href="tel:+6561592288" class="locate-link">Call now</a>
           </p>
           <p class="locate-note">
             ℹ️ Walk-ins welcome. No appointment needed for first consultation.
