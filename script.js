@@ -98,12 +98,53 @@ pickerButtons.forEach((btn) => {
 // above — so a real conversation genuinely changes the site's mood, not
 // just the manual demo buttons.
 
-if (window.botpress && typeof window.botpress.on === "function") {
-  window.botpress.on("customEvent", (event) => {
-    if (event && event.action === "weather_update" && event.weather) {
-      applyWeather(event.weather);
-    }
-  });
+// Wait for window load to ensure window.botpress is defined even if script loading order shifts
+function initBotpressListener() {
+  if (window.botpress && typeof window.botpress.on === "function") {
+    console.log("MindMatters: Botpress event listener initialized.");
+
+    // Listen for custom events sent from Botpress
+    window.botpress.on("customEvent", (event) => {
+      console.log("MindMatters: Botpress custom event received:", event);
+      if (event && event.action === "weather_update" && event.weather) {
+        applyWeather(event.weather);
+      }
+    });
+
+    // Fallback: Listen to regular chat messages for weather keywords (e.g. "weather: stormy")
+    window.botpress.on("message", (message) => {
+      console.log("MindMatters: Botpress message received:", message);
+      const text = message?.payload?.text || message?.text || (message?.payload && message.payload.body);
+      if (text && typeof text === "string") {
+        const cleanText = text.toLowerCase();
+        if (cleanText.includes("weather:") || cleanText.includes("weather_update:")) {
+          let weatherState = "";
+          if (cleanText.includes("sunny") || cleanText.includes("clear")) weatherState = "sunny";
+          else if (cleanText.includes("stormy") || cleanText.includes("storm")) weatherState = "stormy";
+          else if (cleanText.includes("cloudy")) weatherState = "cloudy";
+          else if (cleanText.includes("clearing")) weatherState = "clearing";
+
+          if (weatherState) {
+            console.log(`MindMatters: Text parser matched weather state: "${weatherState}"`);
+            applyWeather(weatherState);
+          }
+        }
+      }
+    });
+
+    // Listen for webchat errors
+    window.botpress.on("error", (error) => {
+      console.error("MindMatters: Botpress Webchat encountered an error:", error);
+    });
+  } else {
+    console.warn("MindMatters: window.botpress or window.botpress.on is not available.");
+  }
+}
+
+if (document.readyState === "complete") {
+  initBotpressListener();
+} else {
+  window.addEventListener("load", initBotpressListener);
 }
 
 // ---------- Interactive breathing exercise (Library section) ----------
