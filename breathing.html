@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Breathing Reset — MindMatters</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#guideMain">Skip to content</a>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html#home" class="logo">
+      <img src="logo-icon.png" alt="" class="logo-mark" aria-hidden="true">
+      <span class="logo-word">Mind<span class="logo-word-accent">Matters</span></span>
+    </a>
+    <nav class="primary-nav">
+      <a href="index.html#home">Today</a>
+      <a href="index.html#how-it-works">Reading the forecast</a>
+      <a href="index.html#check-in">Log weather</a>
+      <a href="index.html#library">Clearing skies</a>
+      <a href="index.html#resources">Severe weather</a>
+      <a href="index.html#about">About</a>
+    </nav>
+  </div>
+</header>
+
+<main id="guideMain" class="guide-main">
+  <a href="index.html#library" class="guide-back-link">← Back to Clearing Skies</a>
+
+  <div class="guide-head">
+    <p class="eyebrow">Clearing skies — full guide</p>
+    <h1>Breathing reset</h1>
+    <p>A short guided breathing sequence for the ten minutes before something stressful. Follow the ring — breathe in as it expands, hold at the top, breathe out as it settles.</p>
+  </div>
+
+  <div class="guide-panel">
+    <div class="guide-breathing-ring" id="guideRing">
+      <div class="ring ring-1"></div>
+      <div class="ring ring-2"></div>
+      <div class="ring ring-3"></div>
+      <span class="guide-ring-label" id="guideRingLabel">Ready</span>
+    </div>
+    <p class="guide-progress" id="guideProgress">60 seconds, whenever you're ready</p>
+    <button class="btn btn-primary guide-btn" id="guideToggle">Start</button>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>MindMatters — a student project, not a medical service.</p>
+</footer>
+
+<script>
+  const guideRing = document.getElementById("guideRing");
+  const guideRingLabel = document.getElementById("guideRingLabel");
+  const guideProgress = document.getElementById("guideProgress");
+  const guideToggle = document.getElementById("guideToggle");
+
+  const SESSION_SECONDS = 60;
+  let guideActive = false;
+  let secondsLeft = SESSION_SECONDS;
+  let countdownInterval = null;
+  let phaseTimer = null;
+
+  const phases = [
+    { text: "Breathe in", duration: 2400 },
+    { text: "Hold", duration: 1200 },
+    { text: "Breathe out", duration: 2400 }
+  ];
+
+  function runPhaseCycle() {
+    let i = 0;
+    function nextPhase() {
+      if (!guideActive) return;
+      guideRingLabel.textContent = phases[i].text;
+      phaseTimer = setTimeout(() => {
+        i = (i + 1) % phases.length;
+        nextPhase();
+      }, phases[i].duration);
+    }
+    nextPhase();
+  }
+
+  function startGuide() {
+    guideActive = true;
+    secondsLeft = SESSION_SECONDS;
+    guideRing.classList.add("active");
+    guideToggle.textContent = "Stop";
+    guideProgress.textContent = secondsLeft + " seconds left";
+    runPhaseCycle();
+
+    countdownInterval = setInterval(() => {
+      secondsLeft--;
+      guideProgress.textContent = secondsLeft > 0 ? secondsLeft + " seconds left" : "Nicely done.";
+      if (secondsLeft <= 0) stopGuide();
+    }, 1000);
+  }
+
+  function stopGuide() {
+    guideActive = false;
+    guideRing.classList.remove("active");
+    guideRingLabel.textContent = "Ready";
+    guideToggle.textContent = "Start";
+    guideProgress.textContent = "60 seconds, whenever you're ready";
+    clearInterval(countdownInterval);
+    clearTimeout(phaseTimer);
+  }
+
+  guideToggle.addEventListener("click", () => {
+    if (guideActive) stopGuide();
+    else startGuide();
+  });
+</script>
+</body>
+</html>

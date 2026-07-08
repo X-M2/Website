@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Before You Present — MindMatters</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#guideMain">Skip to content</a>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html#home" class="logo">
+      <img src="logo-icon.png" alt="" class="logo-mark" aria-hidden="true">
+      <span class="logo-word">Mind<span class="logo-word-accent">Matters</span></span>
+    </a>
+    <nav class="primary-nav">
+      <a href="index.html#home">Today</a>
+      <a href="index.html#how-it-works">Reading the forecast</a>
+      <a href="index.html#check-in">Log weather</a>
+      <a href="index.html#library">Clearing skies</a>
+      <a href="index.html#resources">Severe weather</a>
+      <a href="index.html#about">About</a>
+    </nav>
+  </div>
+</header>
+
+<main id="guideMain" class="guide-main">
+  <a href="index.html#library" class="guide-back-link">← Back to Clearing Skies</a>
+
+  <div class="guide-head">
+    <p class="eyebrow">Clearing skies — full guide</p>
+    <h1>Before you present</h1>
+    <p>A one-minute reset for the two minutes before you walk up front. Let it run — the line underneath changes as the countdown moves.</p>
+  </div>
+
+  <div class="guide-panel">
+    <div class="guide-countdown-number" id="guideCountdownNumber">60</div>
+    <p class="guide-countdown-line" id="guideCountdownLine">Shake out your hands.</p>
+    <button class="btn btn-primary guide-btn" id="guideCountdownToggle">Start 60s</button>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>MindMatters — a student project, not a medical service.</p>
+</footer>
+
+<script>
+  const countdownNumberEl = document.getElementById("guideCountdownNumber");
+  const countdownLineEl = document.getElementById("guideCountdownLine");
+  const countdownToggleEl = document.getElementById("guideCountdownToggle");
+
+  const lines = [
+    { at: 60, text: "Shake out your hands." },
+    { at: 45, text: "Roll your shoulders back." },
+    { at: 30, text: "Take one slow breath." },
+    { at: 15, text: "You know this material." },
+    { at: 5, text: "Almost time. You've got this." }
+  ];
+
+  let interval = null;
+  let value = 60;
+  let active = false;
+
+  function updateLine(v) {
+    const match = [...lines].reverse().find((l) => v <= l.at);
+    if (match) countdownLineEl.textContent = match.text;
+  }
+
+  function start() {
+    active = true;
+    value = 60;
+    countdownNumberEl.textContent = value;
+    updateLine(value);
+    countdownToggleEl.textContent = "Stop";
+
+    interval = setInterval(() => {
+      value--;
+      countdownNumberEl.textContent = value;
+      updateLine(value);
+      if (value <= 0) {
+        countdownLineEl.textContent = "Go get 'em.";
+        stop();
+      }
+    }, 1000);
+  }
+
+  function stop() {
+    active = false;
+    clearInterval(interval);
+    countdownToggleEl.textContent = "Start 60s";
+  }
+
+  countdownToggleEl.addEventListener("click", () => {
+    if (active) {
+      stop();
+      countdownNumberEl.textContent = "60";
+      countdownLineEl.textContent = "Shake out your hands.";
+    } else {
+      start();
+    }
+  });
+</script>
+</body>
+</html>
