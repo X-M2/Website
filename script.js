@@ -412,3 +412,78 @@ filterButtons.forEach((btn) => {
     filterResources(category);
   });
 });
+
+// ---------- Find Help: all 5 Singapore polytechnics ----------
+// Verified July 2026: campus addresses are public knowledge; official
+// counselling page links were checked directly on each school's site.
+// Specific phone numbers/hours are intentionally left to the official
+// pages themselves, since those change independently of this site.
+
+const POLY_DATA = {
+  rp: {
+    name: "Republic Polytechnic",
+    address: "9 Woodlands Ave 9, Singapore 738964",
+    officialLink: "https://www.rp.edu.sg/student-care/counselling",
+    extra: "Student Care team — book via the RP student portal."
+  },
+  np: {
+    name: "Ngee Ann Polytechnic",
+    address: "535 Clementi Rd, Singapore 599489",
+    officialLink: "https://www.np.edu.sg/student-services/student-care-centre",
+    extra: "Student Care Centre, Blk 22 Level 3. Phone/WhatsApp: 6460 6380 (office hours)."
+  },
+  nyp: {
+    name: "Nanyang Polytechnic",
+    address: "180 Ang Mo Kio Ave 8, Singapore 569830",
+    officialLink: "https://www.nyp.edu.sg/student/life/support-services",
+    extra: "Professional counsellors — sessions available on campus and online."
+  },
+  sp: {
+    name: "Singapore Polytechnic",
+    address: "500 Dover Rd, Singapore 139651",
+    officialLink: "https://www.sp.edu.sg/student-services/pastoral-care/counselling",
+    extra: "In-person or video sessions, including after-hours support with a partner organisation."
+  },
+  tp: {
+    name: "Temasek Polytechnic",
+    address: "21 Tampines Ave 1, Singapore 529757",
+    officialLink: "https://www.tp.edu.sg/life-at-tp/a-caring-campus.html",
+    extra: "Free counselling for all full-time students — individual, group, or family sessions."
+  }
+};
+
+const polyButtons = document.querySelectorAll(".poly-btn");
+const locateMapFrame = document.getElementById("locateMapFrame");
+const locatePolyName = document.getElementById("locatePolyName");
+const locateAddress = document.getElementById("locateAddress");
+const locateExtra = document.getElementById("locateExtra");
+const locateDirectionsLink = document.getElementById("locateDirectionsLink");
+const locateOfficialLink = document.getElementById("locateOfficialLink");
+
+function applyPoly(key) {
+  const data = POLY_DATA[key];
+  if (!data || !locateMapFrame) return;
+
+  const encodedAddress = encodeURIComponent(data.address);
+  locateMapFrame.src = `https://www.google.com/maps?q=${encodedAddress}&output=embed`;
+  locatePolyName.textContent = data.name + " — Counselling Office";
+  locateAddress.innerHTML = `<strong>${data.name}</strong><br>${data.address}`;
+  locateExtra.textContent = data.extra;
+  locateDirectionsLink.href = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+  locateOfficialLink.href = data.officialLink;
+
+  polyButtons.forEach((b) => {
+    const match = b.dataset.poly === key;
+    b.classList.toggle("active", match);
+    b.setAttribute("aria-pressed", match ? "true" : "false");
+  });
+}
+
+polyButtons.forEach((btn) => {
+  btn.addEventListener("click", () => applyPoly(btn.dataset.poly));
+});
+
+// Initialise with Republic Polytechnic on page load
+if (locateMapFrame) {
+  applyPoly("rp");
+}

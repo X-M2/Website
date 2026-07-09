@@ -336,10 +336,7 @@ p { margin: 0; }
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 80px 24px 100px;
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 48px;
-  align-items: start;
+  display: block;
 }
 .hero h1 {
   font-size: clamp(2.1rem, 4vw, 3.2rem);
@@ -410,6 +407,7 @@ p { margin: 0; }
 .section-alt > * { max-width: var(--max-width); margin-left: auto; margin-right: auto; }
 .section-head { max-width: 56ch; margin-bottom: 44px; }
 .section-head h2 { font-size: clamp(1.6rem, 3vw, 2.15rem); line-height: 1.22; }
+.section-head p { margin-top: 10px; font-size: 1rem; color: var(--ink-soft); line-height: 1.5; }
 
 /* ---------- Steps ---------- */
 .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
@@ -678,7 +676,7 @@ p { margin: 0; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 860px) {
-  .hero { grid-template-columns: 1fr; padding-top: 52px; }
+  .hero { padding-top: 52px; }
   .hero-visual { order: -1; margin-bottom: 24px; justify-content: flex-start; }
   .steps { grid-template-columns: 1fr; }
   .library-grid { grid-template-columns: 1fr; }
@@ -864,7 +862,30 @@ p { margin: 0; }
   min-height: 1.4em;
 }
 
-/* ---------- Locate: Find Counseling Office ---------- */
+/* ---------- Locate: Find Counselling Office (all 5 SG polytechnics) ---------- */
+.locate-switcher {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+
+.poly-btn {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.88rem;
+  padding: 9px 18px;
+  border-radius: 100px;
+  border: 1.5px solid var(--line);
+  background: var(--paper-white);
+  color: var(--ink);
+  cursor: pointer;
+  transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+}
+.poly-btn:hover { transform: translateY(-1px); border-color: var(--ink); }
+.poly-btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.poly-btn.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
 .locate-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -906,19 +927,23 @@ p { margin: 0; }
 }
 
 .locate-address,
-.locate-hours,
-.locate-phone {
+.locate-note-text {
   font-size: 0.93rem;
   color: var(--ink-soft);
   line-height: 1.6;
   margin-bottom: 12px;
 }
 
-.locate-address strong,
-.locate-hours strong,
-.locate-phone strong {
+.locate-address strong {
   color: var(--ink);
   font-weight: 600;
+}
+
+.locate-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 6px;
 }
 
 .locate-link {
@@ -946,28 +971,11 @@ p { margin: 0; }
   background: linear-gradient(135deg, rgba(79, 174, 109, 0.08), rgba(46, 139, 133, 0.06));
 }
 
-.locate-directions {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.locate-directions li {
-  font-size: 0.92rem;
+.locate-tips p {
+  font-size: 0.93rem;
   color: var(--ink-soft);
-  margin-bottom: 10px;
-  padding-left: 0;
-}
-
-.locate-directions strong {
-  color: var(--ink);
-  font-weight: 600;
-}
-
-.locate-emoji {
-  font-size: 2.4rem;
-  margin-top: 12px;
-  opacity: 0.8;
+  line-height: 1.6;
+  margin: 0;
 }
 
 /* ---------- Resource Library ---------- */
@@ -1153,6 +1161,18 @@ p { margin: 0; }
     white-space: nowrap;
   }
 }
+
+/* Note: this block previously had a corrupted opening — the media
+   query wrapper and a .locate-container selector were accidentally
+   deleted, leaving an orphaned declaration. That caused every rule
+   below it (including the mobile nav and single-column overrides)
+   to apply globally at ALL screen sizes instead of only on mobile —
+   the root cause of the misaligned/stacked cards. Fixed by restoring
+   the media query wrapper and removing rules already handled
+   correctly in the media queries above. */
+@media (max-width: 860px) {
+  .locate-container {
+    grid-template-columns: 1fr;
     gap: 24px;
   }
 
@@ -1162,60 +1182,9 @@ p { margin: 0; }
 
   .section { padding: 60px 24px; }
   .section-head h2 { font-size: clamp(1.4rem, 2.5vw, 1.8rem); }
-  .primary-nav { display: none; }
-  
-  .nav-toggle {
-    display: flex;
-  }
-
-  .nav-toggle.open span:nth-child(1) {
-    transform: rotate(45deg) translateY(12px);
-  }
-  .nav-toggle.open span:nth-child(2) {
-    opacity: 0;
-  }
-  .nav-toggle.open span:nth-child(3) {
-    transform: rotate(-45deg) translateY(-12px);
-  }
-
-  .primary-nav.open {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    right: 0;
-    background: rgba(237, 241, 238, 0.98);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--line);
-    gap: 0;
-    padding: 16px 24px;
-  }
-  .primary-nav.open a {
-    padding: 10px 0;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .hero {
-    grid-template-columns: 1fr;
-    padding: 60px 24px 80px;
-    gap: 32px;
-  }
-
-  .hero h1 { font-size: clamp(1.8rem, 3.5vw, 2.4rem); }
 
   .weather-section {
     flex-direction: column;
-    gap: 24px;
-  }
-
-  .steps {
-    grid-template-columns: 1fr;
-    gap: 18px;
-  }
-
-  .library-grid {
-    grid-template-columns: 1fr;
     gap: 24px;
   }
 
